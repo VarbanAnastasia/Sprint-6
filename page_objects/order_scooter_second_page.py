@@ -1,7 +1,7 @@
 import allure
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.support.wait import WebDriverWait
+
+from page_objects.base_page import BasePage
 
 
 class LocatorOrderScooterFromSecondPage:
@@ -25,33 +25,24 @@ class LocatorOrderScooterFromSecondPage:
 
 
 @allure.step("Заполнение второй формы для оформления заказа")
-class OrderScooterPageSecond:
-
-    def __init__(self, driver):
-        self.driver = driver
+class OrderScooterPageSecond(BasePage):
 
     @allure.step("Заполнение даты")
     def fill_date_form(self):
-        WebDriverWait(self.driver, 10).until(
-            EC.element_to_be_clickable(LocatorOrderScooterFromSecondPage.DATE_PICKER)).click()
-        return WebDriverWait(self.driver, 10).until(
-            EC.visibility_of_element_located(LocatorOrderScooterFromSecondPage.DATE_PICKER_CHOICE)).click()
+        self.find_element_located_click(LocatorOrderScooterFromSecondPage.DATE_PICKER)
+        return self.find_element_located_click(LocatorOrderScooterFromSecondPage.DATE_PICKER_CHOICE)
 
     @allure.step("Заполнение периода аренды")
     def fill_rent_period(self):
-        WebDriverWait(self.driver, 10).until(
-            EC.element_to_be_clickable(LocatorOrderScooterFromSecondPage.RENT_PERIOD)).click()
-        return WebDriverWait(self.driver, 10).until(
-            EC.element_to_be_clickable(LocatorOrderScooterFromSecondPage.RENT_PERIOD_CHOICE)).click()
+        self.find_element_located_click(LocatorOrderScooterFromSecondPage.RENT_PERIOD)
+        return self.find_element_located_click(LocatorOrderScooterFromSecondPage.RENT_PERIOD_CHOICE)
 
     @allure.step("Заполнение цвета")
     def fill_color(self):
-        return WebDriverWait(self.driver, 10).until(
-            EC.element_to_be_clickable(LocatorOrderScooterFromSecondPage.COLOUR_CHOICE)).click()
+        return self.find_element_located_click(LocatorOrderScooterFromSecondPage.COLOUR_CHOICE)
 
     def fill_comment(self, comment):
-        return WebDriverWait(self.driver, 10).until(
-            EC.element_to_be_clickable(LocatorOrderScooterFromSecondPage.COMMENT_INPUT)).send_keys(comment)
+        return self.find_element_located(LocatorOrderScooterFromSecondPage.COMMENT_INPUT).send_keys(comment)
 
     @allure.step("Заполнение второй формы")
     def fill_second_form(self):
@@ -62,30 +53,24 @@ class OrderScooterPageSecond:
 
     @allure.step("Нажатие кнопки назад")
     def click_back_button(self):
-        return WebDriverWait(self.driver, 10).until(
-            EC.element_to_be_clickable(LocatorOrderScooterFromSecondPage.BACK_BUTTON)).click()
+        return self.find_element_located_click(LocatorOrderScooterFromSecondPage.BACK_BUTTON)
 
     @allure.step("Нажатие кнопки оформления заказа")
     def click_order_button(self):
-        return WebDriverWait(self.driver, 10).until(
-            EC.element_to_be_clickable(LocatorOrderScooterFromSecondPage.ORDER_BUTTON)).click()
+        return self.find_element_located_click(LocatorOrderScooterFromSecondPage.ORDER_BUTTON)
 
     @allure.step("Нажатие кнопки подтверждения")
     def click_confirmation_button_yes(self):
-        return WebDriverWait(self.driver, 10).until(
-            EC.element_to_be_clickable(LocatorOrderScooterFromSecondPage.CONFIRMATION_BUTTON_YES)).click()
+        return self.find_element_located_click(LocatorOrderScooterFromSecondPage.CONFIRMATION_BUTTON_YES)
 
     @allure.step("Нажатие кнопки отмены")
     def click_confirmation_button_no(self):
-        return WebDriverWait(self.driver, 10).until(
-            EC.element_to_be_clickable(LocatorOrderScooterFromSecondPage.CONFIRMATION_BUTTON_NO)).click()
+        return self.find_element_located_click(LocatorOrderScooterFromSecondPage.CONFIRMATION_BUTTON_NO)
 
     @allure.step("Нажатие кнопки посмотреть статус")
     def click_see_status(self):
-        return WebDriverWait(self.driver, 10).until(
-            EC.element_to_be_clickable(LocatorOrderScooterFromSecondPage.SEE_STATUS)).click()
+        return self.find_element_located_click(LocatorOrderScooterFromSecondPage.SEE_STATUS)
 
     @allure.step("Проверка успешного оформления заказа")
     def check_successful_order(self):
-        return WebDriverWait(self.driver, 10).until(
-            EC.element_to_be_clickable(LocatorOrderScooterFromSecondPage.SUCCESSFUL_ORDER)).text
+        return self.find_element_located(LocatorOrderScooterFromSecondPage.SUCCESSFUL_ORDER).text

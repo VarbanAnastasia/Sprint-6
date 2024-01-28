@@ -1,6 +1,4 @@
 import allure
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.common.by import By
 
 from page_objects.base_page import BasePage
@@ -15,13 +13,10 @@ class LogoLocators:
 
 
 class Logo(BasePage):
-    def __init__(self, driver):
-        super().__init__(driver)
-        self.driver = driver
 
     @allure.step("Клик логотипа Самоката")
     def click_logo_scooter(self):
-        return WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable(LogoLocators.SCOOTER_LOGO)).click()
+        return self.find_element_located_click(LogoLocators.SCOOTER_LOGO)
 
     @allure.step("Переход по логотипу Яндекс")
     def transition_logo_yandex(self):

@@ -1,7 +1,7 @@
 import allure
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.support.wait import WebDriverWait
+
+from page_objects.base_page import BasePage
 
 
 class LocatorOrderScooterFromFirstPage:
@@ -14,43 +14,28 @@ class LocatorOrderScooterFromFirstPage:
     PHONE_INPUT = (By.XPATH, '//input[@placeholder="* Телефон: на него позвонит курьер"]')
 
 
-class OrderScooterPage:
-    def __init__(self, driver):
-        self.driver = driver
+class OrderScooterPage(BasePage):
 
     @allure.step("Заполнение имени")
     def fill_name(self, name):
-        name_input = WebDriverWait(self.driver, 10).until(
-            EC.element_to_be_clickable(LocatorOrderScooterFromFirstPage.NAME_INPUT))
-        name_input.send_keys(name)
+        return self.find_element_located(LocatorOrderScooterFromFirstPage.NAME_INPUT).send_keys(name)
 
     @allure.step("Заполнение фамилии")
     def fill_surname(self, surname):
-        surname_input = WebDriverWait(self.driver, 10).until(
-            EC.element_to_be_clickable(LocatorOrderScooterFromFirstPage.SURNAME_INPUT))
-        surname_input.send_keys(surname)
+        return self.find_element_located(LocatorOrderScooterFromFirstPage.SURNAME_INPUT).send_keys(surname)
 
     @allure.step("Заполнение адреса")
     def fill_address(self, address):
-        address_input = WebDriverWait(self.driver, 10).until(
-            EC.element_to_be_clickable(LocatorOrderScooterFromFirstPage.ADDRESS_INPUT))
-        address_input.send_keys(address)
+        return self.find_element_located(LocatorOrderScooterFromFirstPage.ADDRESS_INPUT).send_keys(address)
 
     @allure.step("Заполнение станции метро")
     def fill_metro_station(self):
-        metro_station = WebDriverWait(self.driver, 10).until(
-            EC.element_to_be_clickable(LocatorOrderScooterFromFirstPage.METRO_STATION_INPUT))
-        metro_station.click()
-        certain_metro_station = WebDriverWait(self.driver, 10).until(
-            EC.element_to_be_clickable(LocatorOrderScooterFromFirstPage.CERTAIN_METRO_STATION_INPUT)
-        )
-        certain_metro_station.click()
+        self.find_element_located_click(LocatorOrderScooterFromFirstPage.METRO_STATION_INPUT)
+        return self.find_element_located_click(LocatorOrderScooterFromFirstPage.CERTAIN_METRO_STATION_INPUT)
 
     @allure.step("Заполнение номера телефона")
     def fill_phone(self, phone):
-        phone_input = WebDriverWait(self.driver, 10).until(
-            EC.element_to_be_clickable(LocatorOrderScooterFromFirstPage.PHONE_INPUT))
-        phone_input.send_keys(phone)
+        self.find_element_located(LocatorOrderScooterFromFirstPage.PHONE_INPUT).send_keys(phone)
         
     @allure.step("Заполнение формы")
     def fill_form(self, name, surname, address, phone):

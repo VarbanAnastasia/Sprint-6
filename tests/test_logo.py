@@ -13,7 +13,7 @@ class TestLogo:
         base_page.go_to_site('https://qa-scooter.praktikum-services.ru/')
         logo = Logo(driver)
         logo.click_logo_scooter()
-        assert driver.current_url == 'https://qa-scooter.praktikum-services.ru/'
+        assert base_page.current_url() == 'https://qa-scooter.praktikum-services.ru/'
 
     @allure.title("Проверка возврата на главную страницу Дзен при нажатии лого Яндекс")
     def test_redirection_to_yandex_main_page(self, driver):
